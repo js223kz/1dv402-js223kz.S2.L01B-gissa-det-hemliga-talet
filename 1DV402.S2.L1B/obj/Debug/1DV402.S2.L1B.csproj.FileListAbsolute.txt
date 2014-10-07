@@ -6,3 +6,9 @@ C:\Users\Johanna\Documents\GitHub\C#\1DV402.S2.L1B\1DV402.S2.L1B\bin\Debug\1DV40
 C:\Users\Johanna\Documents\GitHub\C#\1DV402.S2.L1B\1DV402.S2.L1B\bin\Debug\1DV402.S2.L1B.pdb
 C:\Users\Johanna\Documents\GitHub\C#\1DV402.S2.L1B\1DV402.S2.L1B\obj\Debug\1DV402.S2.L1B.exe
 C:\Users\Johanna\Documents\GitHub\C#\1DV402.S2.L1B\1DV402.S2.L1B\obj\Debug\1DV402.S2.L1B.pdb
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\bin\Debug\1DV402.S2.L1B.exe.config
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\obj\Debug\1DV402.S2.L1B.exe
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\obj\Debug\1DV402.S2.L1B.csprojResolveAssemblyReference.cache
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\bin\Debug\1DV402.S2.L1B.exe
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\bin\Debug\1DV402.S2.L1B.pdb
+C:\Users\Johanna\Documents\GitHub\1DV402.S2.L1B\1DV402.S2.L1B\obj\Debug\1DV402.S2.L1B.pdb
