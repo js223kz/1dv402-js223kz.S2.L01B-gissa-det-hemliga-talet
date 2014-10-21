@@ -221,6 +221,7 @@ namespace _1DV402.S2.L1B.TestProject
             {
                 // Eat!
             }
+
             Assert.Fail("ApplicationsException kastas inte då fler gissningar än sju görs.");
         }
 

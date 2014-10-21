@@ -10,143 +10,121 @@ namespace _1DV402.S2.L1B
     {
         //gjorda gissningar
         private int[] _guessedNumbers;
-       
+
         //hemliga talet
         private int _number;
-       
+
         //max antalet tillåtna gissningar
         public const int MaxNumberOfGuesses = 7;
 
-        //Egna fält jag deklarerat för att hantera egenskaperna
-        private bool _canMakeGuess;
-        private int _count;
-        private int _guessesLeft;
 
         //Ok att gissa?
-         public bool CanMakeGuess {
-             get
-             {
-                 return _canMakeGuess;  
-             }
-             private set {//_count eller Count här spelar det roll?
-                 if (_count == MaxNumberOfGuesses)
-                 {
-                     _canMakeGuess = false;
-                 }
-                 if (_guessesLeft > 0)
-                 {
-                     _canMakeGuess = true;
-                 }
-                
-               _canMakeGuess = value;
-            }
-          }
-
-         public int Count
-         {
-             get
-             {
-                 return _count;
-             }
-            private set
-             {
-                 if (_count > MaxNumberOfGuesses)
-                 {
-                     throw new ApplicationException();
-                 }
-                 _count = value; 
-             }
-         }
-        //Varför behövs den här??
-         public readonly int GuessesLeft;
-        
-
-         public void Initialize()
-         {
-             Random randomNumber = new Random();
-             _number = randomNumber.Next(1, 100);
-                 
-                if (_number < 1 || _number >= 100)
-                 {
-                     throw new ArgumentException();
-                 }
-
-             Count = 0;
-             CanMakeGuess = true;
-
-             _guessedNumbers = new []{0, 0, 0, 0, 0, 0, 0} ;
-             
-         }
-
-         public SecretNumber()
-         {
-             _guessedNumbers = new int[MaxNumberOfGuesses];
-             GuessesLeft = MaxNumberOfGuesses;
-             Initialize();
-         }
-     
-        //Gissa talet
-        public bool MakeGuess(int number){
-            _canMakeGuess = true;
-            int index = 0;
-            bool isGuessRight = false;
-
-            for (index = 0; index < MaxNumberOfGuesses; index++)
+        public bool CanMakeGuess
+        {
+            get
             {
-                _guessedNumbers[index] = number;
-            }
-            
-            /*foreach (var item in _guessedNumbers)
-                    {
-                        if (_guessedNumbers[item] == number)
-                        {
-                            Console.WriteLine("Du har redan gissat på {0} ", number);
-                        }
-                    }*/
-
-                do
+               if (Count == MaxNumberOfGuesses)
                 {
-                    _count++;
-                    _guessesLeft = MaxNumberOfGuesses - _count;
-                    
+                    return false;
+                }
+                if (_guessedNumbers.Contains(_number))
+                {
+                    return false;
+                }
 
-                    if (number < 1 || number > 100)
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
-
-                    if (number == _number)
-                    {
-                        Console.WriteLine(" Du har gissat rätt! {0} är rätt nummer!", _number);
-                        isGuessRight = true;
-                    }
-                    else if (number < _number)
-                    {
-                        Console.WriteLine("{0} är ett för lågt nummer Du har {1} gissningar kvar", number, _guessesLeft);
-                    }
-                    else if (number > _number)
-                    {
-                        Console.WriteLine("{0} är ett för högt nummer. Du har {1} gissningar kvar", number, _guessesLeft);
-                    }
-                    else
-                    {
-                    }
-
-                    if (isGuessRight == false && _count == 6)
-                    {
-                        Console.WriteLine("Rätt nummer är {0} ", _number);
-                        _canMakeGuess = false;
-
-                    }
-
-                   
-                    
-
-                } while (_guessesLeft > 0);
-
-                return _canMakeGuess;
-            
+                return true;
+            }
         }
-       
-   }
+
+        public int Count { get; private set; }
+
+        //Gissningar kvar
+        public int GuessesLeft
+        {
+            get
+            {
+                return MaxNumberOfGuesses - Count;
+            }
+        }
+
+        //Initiera ny spelomgång
+        public void Initialize()
+        {
+            Random randomNumber = new Random();
+            _number = randomNumber.Next(1, 100);
+
+            if (_number < 1 || _number >= 100)
+            {
+                throw new ArgumentException();
+            }
+
+            Count = 0;
+            Array.Clear(_guessedNumbers, 0, MaxNumberOfGuesses);
+        }
+
+        public SecretNumber()
+        {
+            _guessedNumbers = new int[MaxNumberOfGuesses];
+            Initialize();
+        }
+
+        //Gissa talet
+        public bool MakeGuess(int number)
+        {
+
+            bool guessIsRight = false;
+
+                if(Count == MaxNumberOfGuesses)
+                {
+                    throw new ApplicationException(); 
+                }
+
+                if (number < 1 || number > 100)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                
+                if (!CanMakeGuess)
+                {
+                    guessIsRight = false;
+                }
+                else if (_guessedNumbers.Contains(number))
+                {
+                    Console.WriteLine("Du har redan gissat på nummer {0}. Gissa igen", number);
+                    guessIsRight = false;
+                }
+                else if (number == _number)
+                {
+                    _guessedNumbers[Count] = number;
+                    Count++;
+                    Console.WriteLine(" Du har gissat rätt! {0} är rätt nummer!", _number);
+                    guessIsRight = true;
+                }
+                else if (number < _number)
+                {
+                    _guessedNumbers[Count] = number;
+                    Count++;
+                    Console.WriteLine("{0} är ett för lågt nummer Du har {1} gissningar kvar", number, GuessesLeft);
+                    guessIsRight = false;
+                }
+                else if (number > _number)
+                {
+                    _guessedNumbers[Count] = number;
+                    Count++;
+                    Console.WriteLine("{0} är ett för högt nummer. Du har {1} gissningar kvar", number, GuessesLeft);
+                    guessIsRight = false;
+                }
+                else
+                {
+                }
+
+                if (Count == MaxNumberOfGuesses && guessIsRight == false)
+                {
+                    Console.WriteLine("Rätt nummer är {0} ", _number);
+                }
+            
+            return guessIsRight;
+        }
+
+    }
 }
